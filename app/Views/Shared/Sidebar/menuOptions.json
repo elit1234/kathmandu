@@ -1,0 +1,84 @@
+[
+    {
+      "id": 1,
+      "label": "Womens",
+      "page": 1,
+      "extName": "womens"
+    },
+    {
+      "id": 2,
+      "label": "Mens",
+      "page": 1,
+      "extName": "mens"
+    },
+    {
+      "id": 3,
+      "label": "Kids",
+      "page": 1,
+      "extName": "kids"
+    },
+    {
+      "id": 4,
+      "label": "Jackets & Vests",
+      "page": 2,
+      "parent": 1,
+      "extName": "jackets-and-vests"
+    },
+    {
+      "id": 5,
+      "label": "Tops",
+      "page": 2,
+      "parent": 1,
+      "extName": "tops"
+    },
+    {
+      "id": 5,
+      "label": "Bottoms",
+      "page": 2,
+      "parent": 1,
+      "extName": "bottoms"
+    },
+    {
+      "id": 6,
+      "label": "Footwear",
+      "page": 2,
+      "parent": 1,
+      "extName": "footwear"
+    },
+    {
+      "id": 7,
+      "label": "Accessories",
+      "page": 2,
+      "parent": 1,
+      "extName": "accessories"
+    },
+    {
+      "id": 8,
+      "label": "Shop all",
+      "page": 2,
+      "parent": 1,
+      "extName": "all"
+    },
+    {
+      "id": 9,
+      "label": "Down & Insulated",
+      "page": 3,
+      "parent": 4,
+      "extName": "womens-down-insulated-jackets"
+    },
+    {
+      "id": 10,
+      "label": "Raincoats",
+      "page": 3,
+      "parent": 4,
+      "extName": "raincoats"
+    },
+    {
+      "id": 11,
+      "label": "Fleece",
+      "page": 3,
+      "parent": 4,
+      "extName": "fleece"
+    }
+  ]
+  

@@ -1,0 +1,51 @@
+.container {
+    padding-top: 12rem;
+    min-height: 10rem;
+    width: 100%;
+}
+
+.windowTitle {
+    font-size: calc(46px + 0.25vw);
+    font-weight: bold;
+    text-align: center;
+    padding: 0 2rem;
+    font-style: italic;
+}
+
+.productsAmount {
+    text-align: center;
+    padding: 2rem;
+    font-size: calc(20px + 0.25vw);
+    font-weight: 300;
+}
+
+.filterContainer {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 0.1fr 1fr;
+}
+
+.filterButton {
+    background: #000;
+}
+
+.filterOptions {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 3rem;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.filterOption {
+    background: #c9c9c9;
+    min-width: 4rem;
+    height: 80%;
+    margin-bottom: 1rem;
+    display: grid;
+    place-items: center;
+}
+

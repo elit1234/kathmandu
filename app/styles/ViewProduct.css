@@ -1,0 +1,246 @@
+.container {
+    min-height: 100%;
+    padding-top: 7rem;
+}
+
+
+.addToBag {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    background: #fff;
+    height: 5rem;
+    z-index: 2;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    display: grid;
+    place-items: center;
+}
+
+.addToButton {
+    background: #3c3c3c;
+    height: 3rem;
+    width: 90%;
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+
+
+
+.productImage {
+    /* height: 150vw; */
+    height: 500px;
+    width: 100vw;
+    object-fit: contain;
+}
+
+.content {
+    padding: 0 5% 15% 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    height: 100%;
+}
+
+.breadcrumbs {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.breadcrumb {
+    font-size: calc(10px + 0.25vw);
+    white-space: nowrap;
+    color: grey;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 4px;
+}
+
+.messageWrapper {
+    display: grid;
+    grid-template-rows: 2.2rem;
+    grid-template-columns: 0.9fr 0.2fr;
+    max-width: 15rem;
+    /* height: 2rem; */
+    align-items: center;
+    transform: skew(-10deg);
+}
+
+.messageLeft {
+    padding: 0 5%;
+    background: linear-gradient(135deg, #60d7ce, #3c3c3c);
+   height: 100%;
+   display: flex;
+   align-items: center;
+}
+
+.messageLeft p {
+    transform: skew(10deg);
+
+    color: #fff;
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.messageRight {
+    height: 100%;
+    background: #f5f5f5;
+    display: grid;
+    place-items: center;
+}
+
+.messageRight svg {
+    transform: skew(10deg);
+}
+
+.productName {
+    font-size: calc(25px + 0.25vw);
+}
+.regular {
+    text-decoration: line-through;
+    font-size: calc(16px + 0.25vw);
+}
+.now {
+    font-size: calc(16px + 0.25vw);
+    margin-top: -1.5rem;
+}
+
+.swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.swatch {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+  }
+
+  .activeColour {
+    display: flex;
+    gap: 0.5rem;
+    color: #00000099;
+    margin-bottom: -1rem;
+  }
+
+  .dropOuter {
+    position: relative;
+    height: 100%;
+  }
+
+  .dropMenu {
+    height: 3rem;
+    border: 1px solid #f6f6f6;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    align-items: center;
+    font-weight: bold;
+  }
+
+  .dropMenuHidden {
+    position: absolute;
+    bottom: -3rem;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    background: #fff;
+  }
+
+
+  .size {
+    min-height: 3rem;
+    border-left: 1px solid #f6f6f6;
+    border-right: 1px solid #f6f6f6;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+  }
+
+  .size:hover {
+    background: #5996ec;
+  }
+
+  .sizeGuide {
+    text-align: center;
+    color: #00000099;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 4px;
+    cursor: pointer;
+}
+
+.afterPay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: calc(12px + 0.25vw);
+    font-weight: bold;
+}
+
+.afterPayImg {
+    height: 3rem;
+}
+
+.afterPayLink {
+    text-decoration: underline;
+}
+
+.afterpayWindow {
+    background: #B2FCE4;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 4;
+    height: 100vh;
+    width: 100vw;
+    min-height: 300px;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem 0;
+    text-align: left;
+    overflow-y: auto;
+    padding-right: 2%;
+    padding-bottom: 20vh;
+}
+
+.afterpayClose {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1rem;
+}
+
+.afterpayWindowImage {
+    max-width: 300px;
+    max-height: 150px;
+    object-fit: contain;
+}
+
+.afterpayWindowText {
+    font-size: calc(30px + 0.25vW);
+    padding: 0 10%;
+    font-weight: bold;
+}
+.afterpayWindowRow {
+    padding-left: 0;
+    display: grid;
+    align-items: center;
+    font-weight: bold;
+    grid-template-rows: 4rem;
+    grid-template-columns: 90px 1fr;
+}

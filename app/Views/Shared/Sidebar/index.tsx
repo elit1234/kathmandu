@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import toggleSidebar from "~/funcs/toggleSidebar";
 // import toggleSidebar from "../funcs/toggleSidebar";
-import optionsJson from "./menuOptions.json";
 
-const Sidebar = () => {
-  const [staticOptions] = useState<MenuOption[]>(optionsJson);
+const Sidebar = ({ menuOptions }: { menuOptions: MenuOption[] }) => {
+  const [staticOptions] = useState<MenuOption[]>(menuOptions);
   const [options, setOptions] = useState<MenuOption[]>();
   const [page, setPage] = useState(1);
   const [active, setActive] = useState<number>(-1);
@@ -150,7 +149,7 @@ const Sidebar = () => {
                   {opt.label}
                 </div>
               );
-            else return <></>;
+            else return null;
           })}
         {page > 1 && (
           <div className="sidebar__options">

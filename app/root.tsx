@@ -1,4 +1,9 @@
-import type { LinksFunction, MetaFunction } from "@remix-run/node";
+import {
+  json,
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -6,6 +11,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 import Sidebar from "./Views/Shared/Sidebar";
 import Topbar from "./Views/Shared/Topbar";
@@ -13,6 +19,7 @@ import Topbar from "./Views/Shared/Topbar";
 import styles from "~/styles/Globals/Globals.css";
 import sidebarStyles from "~/styles/Globals/Sidebar.css";
 import topbarStyles from "~/styles/Globals/Topbar.css";
+import { db } from "./funcs/db";
 export const links: LinksFunction = () => [
   {
     rel: "stylesheet",
@@ -34,7 +41,13 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
+export const loader: LoaderFunction = async () => {
+  const menuOptions = await db.categories.findMany();
+  return json(menuOptions);
+};
+
 export default function App() {
+  const data = useLoaderData();
   return (
     <html lang="en">
       <head>
@@ -43,7 +56,7 @@ export default function App() {
       </head>
       <body>
         <Topbar />
-        <Sidebar />
+        <Sidebar menuOptions={data} />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

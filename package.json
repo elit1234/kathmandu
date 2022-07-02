@@ -7,18 +7,25 @@
     "start": "remix-serve build"
   },
   "dependencies": {
+    "@prisma/client": "^4.0.0",
     "@remix-run/node": "^1.6.1",
     "@remix-run/react": "^1.6.1",
     "@remix-run/serve": "^1.6.1",
+    "@types/siema": "^1.4.8",
+    "flickity": "^3.0.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "react-flickity-component": "^3.6.2",
+    "siema": "^1.5.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.6.1",
     "@remix-run/eslint-config": "^1.6.1",
+    "@types/flickity": "^2.2.6",
     "@types/react": "^17.0.45",
     "@types/react-dom": "^17.0.17",
     "eslint": "^8.15.0",
+    "prisma": "^4.0.0",
     "typescript": "^4.6.4"
   },
   "engines": {

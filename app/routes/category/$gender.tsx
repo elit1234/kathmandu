@@ -4,7 +4,6 @@ const Category = () => {
   return (
     <div>
       <h1>$grandParent:</h1>
-      <Outlet />
     </div>
   );
 };

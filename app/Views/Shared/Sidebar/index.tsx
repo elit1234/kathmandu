@@ -1,3 +1,4 @@
+import { LoaderFunction } from "@remix-run/node";
 import { useEffect, useState } from "react";
 import toggleSidebar from "~/funcs/toggleSidebar";
 // import toggleSidebar from "../funcs/toggleSidebar";
@@ -136,6 +137,12 @@ const Sidebar = ({ menuOptions }: { menuOptions: MenuOption[] }) => {
         {page < 2 &&
           staticOptions &&
           staticOptions.map((opt, key) => {
+            if (opt.extName === "Admin")
+              return (
+                <a className="sidebar__option" key={key} href="/admin">
+                  {opt.extName}
+                </a>
+              );
             if (opt.page === 1)
               return (
                 <div

@@ -1,0 +1,7 @@
+.footerContainer {
+    background: var(--green);
+    min-height: 8rem;
+    display: grid;
+    
+}
+

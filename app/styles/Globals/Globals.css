@@ -30,3 +30,12 @@ html {
     /* Chrome 26+, Opera 23+, Firefox 39+ */
       url("/fonts/montserrat-v24-latin-regular.woff") format("woff"); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
+
+.admin__backIcon {
+  height: 44px;
+  width: 44px;
+  fill: var(--green);
+  margin: 1rem 0;
+  cursor: pointer;
+}

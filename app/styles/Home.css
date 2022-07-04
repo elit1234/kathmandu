@@ -74,7 +74,7 @@
 .blueLineButton {
   background: #3c3c3c;
   height: 4rem;
-  width: 10rem;
+  width: 12rem;
   position: absolute;
   top: 150px;
   left: 0;
@@ -92,6 +92,8 @@
   transition: background 0.2s ease, color 0.2s ease;
   cursor: pointer;
   will-change: background, color;
+  font-weight: bold;
+  font-size: calc(14px + 0.25vw);
 }
 
 .blueLineButton:hover {

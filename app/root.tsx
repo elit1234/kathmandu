@@ -15,11 +15,14 @@ import {
 } from "@remix-run/react";
 import Sidebar from "./Views/Shared/Sidebar";
 import Topbar from "./Views/Shared/Topbar";
+import Footer from "./Views/Shared/Footer";
 
 import styles from "~/styles/Globals/Globals.css";
 import sidebarStyles from "~/styles/Globals/Sidebar.css";
 import topbarStyles from "~/styles/Globals/Topbar.css";
-import { db } from "./funcs/db";
+import footerStyles from "~/styles/Globals/Footer.css";
+import { db } from "./utils/db";
+import { authenticator } from "./utils/auth.server";
 export const links: LinksFunction = () => [
   {
     rel: "stylesheet",
@@ -33,6 +36,10 @@ export const links: LinksFunction = () => [
     rel: "stylesheet",
     href: topbarStyles,
   },
+  {
+    rel: "stylesheet",
+    href: footerStyles,
+  },
 ];
 
 export const meta: MetaFunction = () => ({
@@ -41,9 +48,29 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export const loader: LoaderFunction = async () => {
-  const menuOptions = await db.categories.findMany();
-  return json(menuOptions);
+export const loader: LoaderFunction = async ({ request }) => {
+  let user = await authenticator.isAuthenticated(request, {});
+  let options: MenuOption[] = [];
+
+  const menuOptions = await db.categories.findMany({
+    orderBy: [
+      {
+        position: "asc",
+      },
+    ],
+  });
+  menuOptions &&
+    menuOptions.map((menuOption) => {
+      options.push(menuOption);
+    });
+  if (user && user.admin)
+    options.push({
+      extName: "Admin",
+      label: "Admin",
+      id: 999,
+      page: 1,
+    });
+  return json(options);
 };
 
 export default function App() {
@@ -58,6 +85,7 @@ export default function App() {
         <Topbar />
         <Sidebar menuOptions={data} />
         <Outlet />
+
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

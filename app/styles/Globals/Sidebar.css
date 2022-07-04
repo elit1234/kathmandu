@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100vw;
-  z-index: 3;
+  z-index: 5;
   height: 100vh;
   background: #ebecee;
   transform: translateX(-100vw);
@@ -63,6 +63,7 @@
   align-items: center;
   transition: opacity 0.2s ease;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .sidebar__option.item {

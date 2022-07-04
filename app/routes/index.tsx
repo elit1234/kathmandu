@@ -1,20 +1,22 @@
 import styles from "../styles/Home.css";
-import Top from "../Views/Home/Top";
+
 import { LinksFunction } from "@remix-run/node";
 
 export const links: LinksFunction = () => {
   return [
     {
       rel: "stylesheet",
-      href: styles
-    }
+      href: styles,
+    },
   ];
 };
 
 const Home = () => {
   return (
     <div className="container">
-      <Top />
+      <div className="delivery">
+        <a href="/delivery">Free NZ Delivery on Orders over $100</a>
+      </div>
       <div className="blueLineContainer">
         <img
           alt=""

@@ -1,0 +1,65 @@
+.featuresContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #f5f5f5;
+    padding: 5%;
+}
+
+.featuresArea {
+    height: 4rem;
+    border-bottom: 1px solid #d9d9d9;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.featuresTitle {
+    color: var(--green);
+    font-weight: bold;
+    font-size: calc(22px + 0.25vw);
+}
+
+.drop {
+    transition: transform 0.5s ease, height 0.5s ease;
+    transform: scaleY(0);
+    transform-origin: top;
+    height: 0;
+    margin: 0;
+}
+
+.featuresDrop {
+    display: flex;
+    flex-direction: column;
+    color: #606060;
+    gap: 2rem;
+}
+
+.featuresDropitem:first-of-type {
+    padding-top: 2rem;
+}
+
+.featuresDropitem:last-of-type {
+    padding-bottom: 2rem;
+}
+
+.materialsDrop {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    line-height: 1.8rem;
+    padding: 1rem;
+}
+
+.materialsChartButton {
+    text-decoration: underline;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+}
+
+.materialsChartButton:hover {
+    opacity: 0.6;
+}
+

@@ -1,7 +1,7 @@
 import { json, LinksFunction, LoaderFunction } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
 import { useEffect, useState } from "react";
-import { db } from "~/funcs/db";
+import { db } from "~/utils/db";
 import styles from "~/styles/Category/Root.css";
 
 export const links: LinksFunction = () => [
@@ -149,6 +149,7 @@ const Category = () => {
                           onClick={() => {
                             clickedSwatch(key, item);
                           }}
+                          key={key}
                         />
                       );
                     })}

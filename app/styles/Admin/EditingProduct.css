@@ -77,6 +77,15 @@
     opacity: 0;
     transform: scale(0);
     transition: transform 0.5s ease, opacity 0.5s ease;
+    
+}
+
+.pictureWindow.active {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.pictureWindowForm {
     display: flex;
     flex-direction: column;
     padding: 2rem;
@@ -87,10 +96,25 @@
     .pictureWindow {
         max-width: 800px;
         position: fixed;
-        left: 0;
+        left: 0.5rem;
         right: 0;
         top: 8.5rem;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+    .images {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: center;
+    }
+
+    .pictureWindow {
+        transform: scaleY(0);
+        transform-origin: bottom;
+    }
+
+    .pictureWindow.active {
+        transform: scaleY(1);
+        opacity: 1;
     }
 }
 

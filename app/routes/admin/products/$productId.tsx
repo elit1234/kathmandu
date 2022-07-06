@@ -7,8 +7,10 @@ import {
 import {
   Form,
   useActionData,
+  useFetcher,
   useLoaderData,
   useParams,
+  useSubmit,
 } from "@remix-run/react";
 import { useEffect, useState } from "react";
 import stringifyNumber from "~/funcs/stringifyNumber";
@@ -38,9 +40,17 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   } else return null;
 };
 
-export const action: ActionFunction = async ({ request, params }) => {
-  const { productId } = params;
+export const action: ActionFunction = async ({ request, params, context }) => {
   const formData = await request.formData();
+  let { _action } = Object.fromEntries(formData);
+  if (_action === "images") {
+    const photoImage = formData.get("photoImage");
+    const swatchImage = formData.get("swatchImage");
+    const swatchLabel = formData.get("swatchLabel");
+    console.log("updating " + swatchLabel);
+    return json(true);
+  }
+  const { productId } = params;
   const title = formData.get("title");
   const message = formData.get("message");
   const regular = formData.get("regular");
@@ -64,6 +74,8 @@ export const action: ActionFunction = async ({ request, params }) => {
 
 const EditingProducts = () => {
   const params = useParams();
+  const fetcher = useFetcher();
+  const submit = useSubmit();
   const formData = useActionData();
 
   const { productId } = params;
@@ -76,23 +88,49 @@ const EditingProducts = () => {
   const userClickedImage = (image: string, key: number) => {
     setEditingPicture(key);
     setEditingPictureValue(image);
-    setEditingSwatchValue(productData?.swatches[key]);
+    if (productData && productData.swatches)
+      setEditingSwatchValue(productData.swatches[key]);
     const pictureWindow = document.querySelector(".pictureWindow")!;
-    pictureWindow.style.transform = "scale(1)";
-    pictureWindow.style.opacity = "1";
+
+    pictureWindow.classList.toggle("active");
   };
 
   const closePictureWindow = () => {
     const pictureWindow = document.querySelector(".pictureWindow")!;
-    pictureWindow.style.transform = "scale(0)";
-    pictureWindow.style.opacity = "0";
+    pictureWindow.classList.toggle("active");
     setEditingPicture(-1);
   };
 
   const userSavedPhotos = () => {
-    console.log(editingPicture);
-    console.log(editingPictureValue);
-    console.log(editingSwatchValue);
+    const oldProd = productData;
+    let newProd: ProductType | object = {};
+    if (productData) {
+      let newImages: string[] = [];
+      const newSwatch: SwatchType[] = [];
+      const images = productData.images;
+      const swatches = productData.swatches;
+
+      images &&
+        images.map((image, key) => {
+          if (key !== editingPicture) newImages.push(image);
+          else if (editingPictureValue) newImages.push(editingPictureValue);
+        });
+
+      swatches &&
+        swatches.map((swatch, key) => {
+          if (key !== editingPicture) newSwatch.push(swatch);
+          else if (editingSwatchValue) newSwatch.push(editingSwatchValue);
+        });
+
+      newProd = {
+        ...oldProd,
+        images: newImages,
+        swatches: newSwatch,
+      };
+
+      console.log(newProd);
+      console.log(oldProd);
+    }
   };
 
   useEffect(() => {
@@ -144,51 +182,49 @@ const EditingProducts = () => {
           <button>Save</button>
         </Form>
       )}
-      <div className="pictureWindow">
-        {editingPicture !== -1 && (
-          <>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="24"
-              height="24"
-              className="pictureClose"
-              onClick={() => closePictureWindow()}
-            >
-              <path fill="none" d="M0 0h24v24H0z" />
-              <path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
-            </svg>
 
-            <label>
-              {stringifyNumber(Number(editingPicture + 1))} Image URL
-            </label>
-            <input
-              value={editingPictureValue}
-              onChange={(e) => setEditingPictureValue(e.target.value)}
-            />
-            <label>Swatch URL</label>
-            <input
-              value={editingSwatchValue?.url}
-              onChange={(e) =>
-                setEditingSwatchValue({
-                  label: editingSwatchValue.label,
-                  url: e.target.value,
-                })
-              }
-            />
-            <label>Swatch Label</label>
-            <input
-              value={editingSwatchValue?.label}
-              onChange={(e) =>
-                setEditingSwatchValue({
-                  url: editingSwatchValue.url,
-                  label: e.target.value,
-                })
-              }
-            />
-            <button onClick={() => userSavedPhotos()}>Save</button>
-          </>
-        )}
+      <div className="pictureWindow">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          className="pictureClose"
+          onClick={() => closePictureWindow()}
+        >
+          <path fill="none" d="M0 0h24v24H0z" />
+          <path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z" />
+        </svg>
+        <Form method="post" className="pictureWindowForm">
+          <label>{stringifyNumber(Number(editingPicture + 1))} Image URL</label>
+          <input defaultValue={editingPictureValue} name="photoImage" />
+
+          <label>Swatch URL</label>
+          <input
+            defaultValue={editingSwatchValue?.url}
+            name="swatchImage"
+            // onChange={(e) =>
+            //   setEditingSwatchValue({
+            //     label: editingSwatchValue.label,
+            //     url: e.target.value,
+            //   })
+            // }
+          />
+          <label>Swatch Label</label>
+          <input
+            defaultValue={editingSwatchValue?.label}
+            name="swatchLabel"
+            // onChange={(e) =>
+            //   setEditingSwatchValue({
+            //     url: editingSwatchValue.url,
+            //     label: e.target.value,
+            //   })
+            // }
+          />
+          <button type="submit" name="_action" value="images">
+            Apply photo
+          </button>
+        </Form>
       </div>
 
       <pre>{JSON.stringify(productData, null, 4)}</pre>

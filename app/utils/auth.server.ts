@@ -7,7 +7,7 @@ import { sessionStorage } from "./session.server";
 
 
 
-export let authenticator = new Authenticator<UserLoginType | null>(sessionStorage, {
+export let authenticator = new Authenticator<UserType | null>(sessionStorage, {
     sessionKey: "sessionKey",
     sessionErrorKey: "sessionErrorKey",
     throwOnError: true

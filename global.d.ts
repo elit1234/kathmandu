@@ -41,5 +41,6 @@ type UserLoginType = {
 
 type UserType = {
     email?: string;
+    admin: number;
 
 }

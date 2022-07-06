@@ -56,13 +56,13 @@ const Category = () => {
   ];
 
   useEffect(() => {
-    if (items) {
+    if (items && items[0]) {
       let arr: ProductType[] = [];
       items &&
         items.map((item: ProductType, key: number) => {
           arr.push({
             ...item,
-            showingImage: item.images[0],
+            showingImage: item.images ? item.images[0] : null,
           });
         });
       setProducts(arr);

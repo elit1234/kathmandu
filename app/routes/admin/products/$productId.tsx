@@ -42,15 +42,58 @@ export const loader: LoaderFunction = async ({ request, params }) => {
 
 export const action: ActionFunction = async ({ request, params, context }) => {
   const formData = await request.formData();
+  const { productId } = params;
+
   let { _action } = Object.fromEntries(formData);
   if (_action === "images") {
+    let newProduct: ProductType;
+    const photoId = formData.get("photoId");
     const photoImage = formData.get("photoImage");
     const swatchImage = formData.get("swatchImage");
     const swatchLabel = formData.get("swatchLabel");
-    console.log("updating " + swatchLabel);
+    console.log("updating " + swatchLabel + ", key: " + photoId);
+    const oldProduct: ProductType | any = await db.products.findUnique({
+      where: {
+        id: Number(productId),
+      },
+    });
+    if (oldProduct) {
+      let newImages: string[] = [];
+      const newSwatch: SwatchType[] = [];
+
+      oldProduct.images &&
+        oldProduct.images.map((image: string, key: number) => {
+          if (key !== Number(photoId)) newImages.push(image);
+          else if (photoImage) newImages.push(photoImage.toString());
+        });
+
+      oldProduct.swatches &&
+        oldProduct.swatches.map((swatch: SwatchType, key: number) => {
+          if (key !== Number(photoId)) newSwatch.push(swatch);
+          else if (swatchImage && swatchLabel) {
+            newSwatch.push({
+              label: swatchLabel.toString(),
+              url: swatchImage.toString(),
+            });
+          }
+        });
+      newProduct = {
+        ...oldProduct,
+        swatches: newSwatch,
+        images: newImages,
+      };
+      //Strip ID from object
+      const clone = (({ id, ...newProduct }) => newProduct)(newProduct);
+      await db.products.update({
+        where: {
+          id: Number(productId),
+        },
+        data: clone,
+      });
+    }
+
     return json(true);
   }
-  const { productId } = params;
   const title = formData.get("title");
   const message = formData.get("message");
   const regular = formData.get("regular");
@@ -198,7 +241,11 @@ const EditingProducts = () => {
         <Form method="post" className="pictureWindowForm">
           <label>{stringifyNumber(Number(editingPicture + 1))} Image URL</label>
           <input defaultValue={editingPictureValue} name="photoImage" />
-
+          <input
+            type="hidden"
+            name="photoId"
+            defaultValue={Number(editingPicture)}
+          />
           <label>Swatch URL</label>
           <input
             defaultValue={editingSwatchValue?.url}
